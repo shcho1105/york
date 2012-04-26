@@ -3,8 +3,8 @@ require 'json'
 
 require File.expand_path('../config/environment.rb', File.dirname(__FILE__))
 
-username = 'shcho1105'
-password = '112358'
+username = 'username'
+password = 'password'
 locations = '-123.0,36.0,-121.0,38.0' # SF Bay Area
 
 EventMachine.run do
