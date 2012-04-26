@@ -1,0 +1,44 @@
+<%= javascript_include_tag "jquery" %>
+<%= javascript_include_tag "rails" %>
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false" %>
+<%= javascript_include_tag "maps" %>
+
+<script>
+function initialize() {
+  var mapOptions = {
+    zoom: 10,
+    center: new google.maps.LatLng(37.525, -122.155),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+  cmMap = new google.maps.Map(document.getElementById("tweet_map"), mapOptions);
+  cmMapData = <%= raw @tweets.to_json %>;
+  cmLoadMap(cmMapData);
+
+  google.maps.event.addListener(cmMap, 'idle', function() {
+    if (this.isMapDragging) {
+      this.idleSkipped = true;
+      return;
+    }
+    this.idleSkipped = false;
+    cmMapChanged();
+  }.bind(this));
+  google.maps.event.addListener(cmMap, 'dragstart', function() {
+    this.isMapDragging = true;
+  }.bind(this));
+  google.maps.event.addListener(cmMap, 'dragend', function() {
+    this.isMapDragging = false;
+    if (this.idleSkipped == true) {
+      cmMapChanged();
+      this.idleSkipped = false;
+    }
+  }.bind(this));
+  google.maps.event.addListener(cmMap, 'bounds_changed', function() {
+    this.idleSkipped = false;
+  }.bind(this));
+}
+</script>
+
+<body onload="initialize()">
+<div id="tweet_map" style="width: 800px; height: 600px;"></div>
+</body>
+

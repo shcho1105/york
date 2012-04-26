@@ -1,4 +1,5 @@
 york
 ====
 
-Tweets by coordinate
+Tweets by coordinates
+

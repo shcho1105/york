@@ -1,0 +1,39 @@
+<h1>Tweets</h1>
+
+<div id="content_menu">
+  <%= form_for :tweet, :html => { :method => :get } do |f| %>
+  <p>
+    <label for="lat" class="map_menu">Latitude : </label>
+    <%= f.text_field :lat, :value => params[:tweet] && params[:tweet]['lat'] %>
+    <label for="lon" class="map_menu">Longitude : </label>
+    <%= f.text_field :lon, :value => params[:tweet] && params[:tweet]['lon'] %>
+  </p>
+  <p>
+    <%= f.submit "Show Tweets" %>
+  </p>
+  <% end %>
+  <p>
+    <h2> <%= link_to 'Show Map', maps_path %> </h1>
+  </p>
+</div>
+
+<table>
+  <tr>
+    <th>TIME</th>
+    <th>Location</th>
+    <th>Screen Name</th>
+    <th>Text</th>
+  </tr>
+
+<% @tweets.each do |tweet| %>
+  <tr>
+    <td><%= tweet.created_at.strftime("%m/%d %H:%M:%S") %>
+    <td><%= "#{tweet.location[0]}, #{tweet.location[1]}" %>
+    <td><%= tweet.screen_name %>
+    <td><%= tweet.text %>
+    <!-- <td><%= link_to 'Show', tweet %></td> -->
+    <!-- <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td> -->
+    <!-- <td><%= link_to 'Destroy', tweet, confirm: 'Are you sure?', method: :delete %></td> -->
+  </tr>
+<% end %>
+</table>
