@@ -10,3 +10,4 @@ How To Run:
   $ rake db:migrate         <= create Mongo DB index
   $ rake tweet:stream:start <= start Twitter Streaming client
   $ rails server            <= run web server
+  $ rake tweet:stream:stop  <= stop Twitter Streaming client
